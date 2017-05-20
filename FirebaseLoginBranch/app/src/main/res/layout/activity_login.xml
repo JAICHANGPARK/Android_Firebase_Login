@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".LoginActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -11,7 +21,6 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
-
 
         <ImageView
             android:layout_width="@dimen/logo_width_height"
@@ -51,45 +60,55 @@
         </android.support.design.widget.TextInputLayout>
 
         <!-- Login Button -->
+        <LinearLayout
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="#FFCB2B"
-            android:text="@string/btn_login"
-            android:textColor="@android:color/black" />
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btn_google_login"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </com.google.android.gms.common.SignInButton>
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFCB2B"
+                android:text="@string/btn_login"
+                android:textColor="@android:color/black" />
 
-        <Button
-            android:id="@+id/btn_reset_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/btn_forgot_password"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
+            <Button
+                android:id="@+id/btn_other_login"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFCB2B"
+                android:text="Other Login"
+                android:textColor="@android:color/black" />
 
-        <!-- Link to Login Screen -->
+            <Button
+                android:id="@+id/btn_reset_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@null"
+                android:text="@string/btn_forgot_password"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent" />
 
-        <Button
-            android:id="@+id/btn_sign_up"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/btn_link_to_register"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+            <!-- Link to Login Screen -->
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@null"
+                android:text="@string/btn_link_to_register"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <ProgressBar
@@ -100,4 +119,26 @@
         android:layout_marginBottom="20dp"
         android:visibility="gone" />
 
-</LinearLayout>
+    <RelativeLayout
+
+        android:id="@+id/rl_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="400dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+        <include layout="@layout/activity_login_bottom" />
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+
+        android:id="@+id/fab"
+        app:backgroundTint = "#e91e63"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/rl_bottom_sheet"
+        app:layout_anchorGravity="right|top"
+        app:srcCompat="@drawable/ic_span_arrow" />
+
+</android.support.design.widget.CoordinatorLayout>

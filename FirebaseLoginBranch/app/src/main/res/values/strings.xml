@@ -42,4 +42,11 @@
     <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
     <string name="cancel">Cancel</string>
 
+    <string name="twitter_consumer_key" >YOUR_KEY</string>
+    <string name="twitter_consumer_secret">YOUR_KEY</string>
+
+    <string name="facebook_app_id">YOUR_KEY</string>
+
+    <string name="kakao_app_key">YOUR_KEY</string>
+
 </resources>

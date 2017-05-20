@@ -1,5 +1,6 @@
 package com.dreamwalker.firebaseloginbranch;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +19,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.TwitterAuthProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,15 +39,46 @@ import static com.dreamwalker.firebaseloginbranch.R.id.remove;
 
 public class HomeActivity extends AppCompatActivity {
 
+
+
     private static final String TAG = "HomeActivity";
     private int btnCount = 0;
+    long pressTime;
 
+    static final String KEY_USER_BUNDLE = "key_user_bundle";
+    static final String KEY_USER_UID = "key_user_uid";
+    static final String KEY_USER_EMAIL = "key_user_email";
+    static final String KEY_USER_PROVIDER = "key_user_provider";
+
+    public static Intent createIntent(Context context, Bundle userInfoBundle) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        return intent.putExtra(KEY_USER_BUNDLE, userInfoBundle);
+    }
+
+    enum Provider {
+        GOOGLE(GoogleAuthProvider.PROVIDER_ID),
+        FACEBOOK(FacebookAuthProvider.PROVIDER_ID),
+        TWITTER(TwitterAuthProvider.PROVIDER_ID),
+        EMAIL(EmailAuthProvider.PROVIDER_ID);
+
+        private final String providerId;
+
+        Provider(String providerId) {
+            this.providerId = providerId;
+        }
+
+        public String getProviderId() {
+            return providerId;
+        }
+    }
 
     @BindView(R.id.old_email)
     EditText oldEmail;
     @BindView(R.id.new_email)
     EditText newEmail;
     @BindView(R.id.password)
+
+
     EditText password;
     @BindView(R.id.new_Password)
     EditText newPassword;
@@ -76,15 +112,23 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener mAuthListener;
 
     public FirebaseUser users;
+    private String userProvider;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         Log.d(TAG, "onCreate " + TAG);
+        toolbar.setTitle("Guest");
 
-
+        /*Bundle userInfoBundle = getIntent().getBundleExtra(KEY_USER_BUNDLE);
+        //String userUid = userInfoBundle.getString(KEY_USER_UID);
+       // String userEmail = userInfoBundle.getString(KEY_USER_EMAIL);
+        userProvider = userInfoBundle.getString(KEY_USER_PROVIDER);*/
 
         //setSupportActionBar(toolbar);
 
@@ -124,6 +168,7 @@ public class HomeActivity extends AppCompatActivity {
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
+
     }
 
     @OnClick(R.id.change_email_button)
@@ -319,6 +364,7 @@ public class HomeActivity extends AppCompatActivity {
     public void signOutUser() {
 
         mAuth.signOut();
+
         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -345,6 +391,18 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
         progressBar.setVisibility(View.GONE);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - pressTime < 2000){
+            finishAffinity();
+            return;
+        }
+        Toast.makeText(this,"한 번더 누르시면 앱이 종료됩니다",Toast.LENGTH_LONG).show();
+        pressTime = System.currentTimeMillis();
+    }
+
 
     private void showRemoveConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

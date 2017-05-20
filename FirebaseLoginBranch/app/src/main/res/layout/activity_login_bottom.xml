@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#303f9f"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        android:text="Other Login Method"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#eeeeee"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_google_login"
+            android:layout_margin="10dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+        </com.google.android.gms.common.SignInButton>
+
+        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+            android:id="@+id/btn_twitter_login"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"/>
+
+        <!--<Button
+            android:text="Twitter Login"
+            android:id="@+id/btn_twitter_login"
+            android:layout_margin="10dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"/>-->
+
+        <com.kakao.usermgmt.LoginButton
+            android:id="@+id/btn_kakao_login"
+            android:layout_margin="10dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center">
+        </com.kakao.usermgmt.LoginButton>
+
+        <Button
+            android:id="@+id/btn_line_login"
+            android:text="Log in with LINE"
+            android:textColor="@color/white"
+            android:background="#00C300"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"/>
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_facebook_login"
+            android:layout_margin="10dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"/>
+
+
+
+    </LinearLayout>
+</LinearLayout>
